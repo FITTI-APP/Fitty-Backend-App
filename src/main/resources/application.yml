@@ -55,7 +55,14 @@ spring:
   profiles:
     include:
       - oauth2
-
   error:
     include-message: always
     include-stacktrace: never
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: debug
+        type:
+          descriptor:
+            sql: trace
