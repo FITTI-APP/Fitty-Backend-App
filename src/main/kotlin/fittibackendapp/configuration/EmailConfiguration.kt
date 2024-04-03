@@ -11,6 +11,10 @@ import java.util.Properties
 class EmailConfiguration(
     private val enviroment: Environment
 ) {
+    @Bean(BeanName.AUTH_CODE_EXPIRATION_MILLS)
+    fun authCodeExpirationMills(): Long {
+        return enviroment.getProperty("spring.email.auth-code-expiration-mills")!!.toLong()
+    }
 
     @Bean(BeanName.MAIL_SENDER)
     fun JavaMailSender(): JavaMailSender {
@@ -48,6 +52,7 @@ class EmailConfiguration(
 
     object BeanName {
         const val MAIL_SENDER = "mailSender"
+        const val AUTH_CODE_EXPIRATION_MILLS = "authCodeExpirationMills"
     }
 }
 
