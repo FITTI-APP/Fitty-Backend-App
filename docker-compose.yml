@@ -25,5 +25,17 @@ services:
       - fitti-mysql_volume:/var/lib/mysql
       - ./docker/init-database.sql:/docker-entrypoint-initdb.d/init-database.sql
 
+  redis:
+    image: redis:7.2.4-alpine
+    command: redis-server --port 6379
+    container_name: fitti-redis
+    hostname: fitti-redis
+    labels:
+      - "name=redis"
+      - "mode=standalone"
+    ports:
+      - "5516:6379"
+    restart: unless-stopped
+
 volumes:
   fitti-mysql_volume:
