@@ -110,6 +110,8 @@ dependencies {
     // implementation("com.graphql-java-generator:graphql-java-common-runtime:1.18.6")
     implementation("org.mapstruct", "mapstruct", mapStructVersion)
     kapt("org.mapstruct", "mapstruct-processor", mapStructVersion)
+    implementation("org.springframework.boot", "spring-boot-starter-mail", "3.2.4")
+
     // implementation("org.modelmapper", "modelmapper", "3.0.0")
 
     //	implementation("com.google.guava", "guava", "31.1-jre")
