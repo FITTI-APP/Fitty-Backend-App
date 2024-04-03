@@ -23,6 +23,22 @@ class ExerciseSessionRecordService(
     private val exerciseSaveTypeRepository: ExerciseSaveTypeRepository,
 ) {
 
+    fun listBetweenDates(
+        userId: Long,
+        fromDate: LocalDate,
+        toDate: LocalDate,
+    ): List<ExerciseSessionRecordDto> {
+        val user = userRepository.findByIdOrNull(userId) ?: throw NotFoundUserException()
+
+        val exerciseSessionRecords = exerciseSessionRecordRepository.findAllByUserAndStartTimeBetween(
+            user = user,
+            startTime = fromDate.atStartOfDay(),
+            endTime = toDate.atTime(LocalDateTime.MAX.toLocalTime()),
+        ) // todo QueryDsl
+
+        return exerciseSessionRecordMapStruct.toDtos(exerciseSessionRecords)
+    }
+
     fun listByDate(
         userId: Long,
         date: LocalDate,
@@ -31,8 +47,8 @@ class ExerciseSessionRecordService(
 
         val exerciseSessionRecords = exerciseSessionRecordRepository.findAllByUserAndStartTimeBetween(
             user = user,
-            startTime = date.atStartOfDay(),
             endTime = date.atTime(LocalDateTime.MAX.toLocalTime()),
+            startTime = date.atStartOfDay(),
         ) // todo QueryDsl
 
         return exerciseSessionRecordMapStruct.toDtos(exerciseSessionRecords)
