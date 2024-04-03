@@ -6,4 +6,4 @@ import org.mapstruct.Mapper
 import org.mapstruct.MappingConstants
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
-interface DietMapStruct: GenericMapStruct<Nutrition, NutritionDto>
+interface NutritionMapStruct: GenericMapStruct<Nutrition, NutritionDto>
