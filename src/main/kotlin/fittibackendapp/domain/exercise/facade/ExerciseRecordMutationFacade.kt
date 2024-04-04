@@ -119,6 +119,26 @@ class ExerciseRecordMutationFacade(
     }
 
     @Transactional
+    fun deleteExerciseSessionRecord(
+        userId: Long,
+        exerciseSessionRecordId: Long
+    ) {
+        val exerciseExerciseRecordIds = exerciseExerciseRecordService
+            .listExerciseExerciseRecordsByExerciseSessionRecordId(exerciseSessionRecordId)
+            .map { it.id }
+
+        val exerciseSetRecords = exerciseSetRecordService
+            .listByExerciseExerciseRecordIds(exerciseExerciseRecordIds)
+            .map { it.id }
+
+        exerciseSetRecordService.deleteAll(exerciseSetRecords)
+        exerciseExerciseRecordService.deleteAll(exerciseExerciseRecordIds)
+        exerciseSessionRecordService.delete(
+            exerciseSessionRecordId = exerciseSessionRecordId,
+        ) // 이렇게 안해도 Cascade로 인해 자동으로 삭제됨. 하지만 확실하게 하기위해 삭제
+    }
+
+    @Transactional
     fun deleteExerciseExerciseRecords(
         exerciseSessionRecordId: Long?,
         exerciseExerciseRecordInputs: List<ExerciseExerciseRecordInput>

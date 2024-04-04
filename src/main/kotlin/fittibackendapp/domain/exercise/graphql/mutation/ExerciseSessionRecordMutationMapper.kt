@@ -30,4 +30,17 @@ class ExerciseSessionRecordMutationMapper(
             exerciseSessionRecordInput = exerciseSessionRecordInput,
         )
     }
+
+    @MutationMapping
+    fun deleteExerciseSessionRecord(
+        @Argument
+        exerciseSessionRecordId: Long
+    ): Boolean {
+        val userId = argumentResolver.getUserId()
+        exerciseRecordMutationFacade.deleteExerciseSessionRecord(
+            userId = userId,
+            exerciseSessionRecordId = exerciseSessionRecordId,
+        )
+        return true
+    }
 }

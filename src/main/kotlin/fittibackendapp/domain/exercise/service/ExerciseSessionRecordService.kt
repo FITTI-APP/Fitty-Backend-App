@@ -23,6 +23,16 @@ class ExerciseSessionRecordService(
     private val exerciseSaveTypeRepository: ExerciseSaveTypeRepository,
 ) {
 
+    @Transactional
+    fun delete(
+        exerciseSessionRecordId: Long,
+    ) {
+        val exerciseSessionRecord = exerciseSessionRecordRepository.findByIdOrNull(exerciseSessionRecordId)
+            ?: throw NotFoundExerciseSessionRecordException()
+
+        exerciseSessionRecordRepository.delete(exerciseSessionRecord)
+    }
+
     fun listByDate(
         userId: Long,
         date: LocalDate,
