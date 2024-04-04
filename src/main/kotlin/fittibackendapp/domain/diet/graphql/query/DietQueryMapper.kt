@@ -23,7 +23,11 @@ class DietQueryMapper(
     ): PcfAmountInGramsDto {
         val userId = argumentResolver.getUserId()
 
-        return dietRecordQueryFacade.getPcfAmountInGramsBetweenDays(userId, fromDate, toDate)
+        return dietRecordQueryFacade.getPcfAmountInGramsBetweenDays(
+            userId = userId,
+            fromDate = fromDate,
+            toDate = toDate,
+        )
     }
 
     @QueryMapping

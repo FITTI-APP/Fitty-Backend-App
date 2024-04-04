@@ -18,9 +18,17 @@ class DietRecordQueryFacade(
 ) {
     fun getPcfAmountInGramsBetweenDays(userId: Long, fromDate: LocalDate, toDate: LocalDate): PcfAmountInGramsDto {
         val dietMealRecordIds =
-            dietMealRecordService.findDietMealRecordsBetweenDays(userId, fromDate, toDate).map { it.id }
+            dietMealRecordService.findDietMealRecordsBetweenDays(
+                userId = userId,
+                fromDate = fromDate,
+                toDate = toDate,
+            ).map { it.id }
         val dietFoodRecords = dietFoodRecordService.findAllByDietMealRecordIds(dietMealRecordIds)
-        val nutritions = nutritionService.findAllByIds(dietFoodRecords.map { it.nutrition.id }.distinct())
+        val nutritions = nutritionService.findAllByIds(
+            dietFoodRecords.map {
+                it.nutrition.id
+            }.distinct(),
+        )
         val nutritionMap = nutritions.associateBy { it.id }
         var protein = 0.0
         var carbohydrate = 0.0
@@ -31,21 +39,33 @@ class DietRecordQueryFacade(
             carbohydrate += nutrition.carbohydrate * it.weight
             fat += nutrition.fat * it.weight
         }
-        return PcfAmountInGramsDto(protein, carbohydrate, fat)
+        return PcfAmountInGramsDto(
+            protein = protein,
+            carbohydrate = carbohydrate,
+            fat = fat,
+        )
     }
 
     fun getPcfRatioInGramsBetweenDays(userId: Long, fromDate: LocalDate, toDate: LocalDate): PcfRatioDto {
-        val pcfAmountInGrams = getPcfAmountInGramsBetweenDays(userId, fromDate, toDate)
+        val pcfAmountInGrams = getPcfAmountInGramsBetweenDays(
+            userId = userId,
+            fromDate = fromDate,
+            toDate = toDate,
+        )
         val totalAmountInGrams = pcfAmountInGrams.protein + pcfAmountInGrams.carbohydrate + pcfAmountInGrams.fat
         return PcfRatioDto(
             pcfAmountInGrams.protein / totalAmountInGrams,
             pcfAmountInGrams.carbohydrate / totalAmountInGrams,
-            pcfAmountInGrams.fat / totalAmountInGrams
+            pcfAmountInGrams.fat / totalAmountInGrams,
         )
     }
 
     fun getTargetPcfRatio(userId: Long): PcfRatioDto {
         val targetPcfRatio = targetPcfRatioService.findByUserId(userId)
-        return PcfRatioDto(targetPcfRatio.protein, targetPcfRatio.carbohydrate, targetPcfRatio.fat)
+        return PcfRatioDto(
+            proteinRatio = targetPcfRatio.protein,
+            carbohydrateRatio = targetPcfRatio.carbohydrate,
+            fatRatio = targetPcfRatio.fat,
+        )
     }
 }
