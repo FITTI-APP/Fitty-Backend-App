@@ -1,6 +1,6 @@
 package fittibackendapp.domain.auth.entity
 
-import fittibackendapp.common.entitiybase.AuditLoggingBase
+import fittibackendapp.common.entitiybase.AuditLoggingEnumBase
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.FetchType
@@ -32,7 +32,7 @@ class User(
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "role", nullable = false)
+    @JoinColumn(name = "role_id", nullable = false)
     var role: Role,
 
     @NotNull
@@ -40,7 +40,7 @@ class User(
     @JoinColumn(name = "login_type_id", nullable = false)
     var loginType: LoginType
 
-): AuditLoggingBase() {
+): AuditLoggingEnumBase() {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
