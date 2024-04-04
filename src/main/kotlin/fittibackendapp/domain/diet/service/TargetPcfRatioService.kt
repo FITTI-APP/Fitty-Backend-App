@@ -12,7 +12,9 @@ class TargetPcfRatioService(
     private val targetPcfRatioMapStruct: TargetPcfRatioMapStruct
 ) {
     fun findByUserId(userId: Long): TargetPcfRatioDto {
-        val targetPcfRatio = targetPcfRatioRepository.findByUserId(userId) ?: throw NotFoundTargetPcfRatioException()
+        val targetPcfRatio = targetPcfRatioRepository.findByUserId(userId)
+            ?: throw NotFoundTargetPcfRatioException()
+        
         return targetPcfRatioMapStruct.toDto(targetPcfRatio)
     }
 }
