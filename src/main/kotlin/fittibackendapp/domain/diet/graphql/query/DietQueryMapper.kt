@@ -45,11 +45,4 @@ class DietQueryMapper(
             toDate = toDate,
         )
     }
-
-    @QueryMapping
-    fun getOrCreateTargetPcfRatio(): PcfRatioDto {
-        val userId = argumentResolver.getUserId()
-
-        return dietRecordQueryFacade.getOrCreateTargetPcfRatio(userId)
-    }
 }

@@ -5,6 +5,5 @@ extend type Query{
     """
     getPcfRatioInKcalBetweenDays(fromDate: LocalDate!, toDate: LocalDate!): PcfRatio!
 
-    "유저의 목표 탄단지 섭취량 비율(칼로리단위)을 반환합니다."
-    getTargetPcfRatio: PcfRatio!
+
 }
