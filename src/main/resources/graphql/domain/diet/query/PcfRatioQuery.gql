@@ -1,4 +1,10 @@
 extend type Query{
-    # fromDate 부터 toDate 까지 섭취한 탄단지 gram 수의 비율
-    getPcfRatioInGramsBetweenDays(fromDate: LocalDate!, toDate: LocalDate!): PcfRatio!
+    """
+    fromDate 부터 toDate 까지 섭취한 탄단지 칼로리 수의 비율을 반환합니다.
+    만약 해당 기간동안 먹은게 없을 경우 모두 0으로 출력됩니다.
+    """
+    getPcfRatioInKcalBetweenDays(fromDate: LocalDate!, toDate: LocalDate!): PcfRatio!
+
+    "유저의 목표 탄단지 섭취량 비율(칼로리단위)을 반환합니다."
+    getTargetPcfRatio: PcfRatio!
 }

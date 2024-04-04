@@ -1,3 +1,4 @@
 extend type Query{
+    "해당 기간동안 단백질 지방 탄수화물의 그램 수를 조회합니다."
     getPcfAmountInGramsBetweenDays(fromDate: LocalDate!, toDate: LocalDate!): PcfAmountInGrams!
 }
