@@ -47,9 +47,9 @@ class DietQueryMapper(
     }
 
     @QueryMapping
-    fun getTargetPcfRatio(): PcfRatioDto {
+    fun getOrCreateTargetPcfRatio(): PcfRatioDto {
         val userId = argumentResolver.getUserId()
 
-        return dietRecordQueryFacade.getTargetPcfRatio(userId)
+        return dietRecordQueryFacade.getOrCreateTargetPcfRatio(userId)
     }
 }

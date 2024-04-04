@@ -7,6 +7,7 @@ import fittibackendapp.domain.diet.service.TargetPcfRatioService
 import fittibackendapp.dto.PcfAmountInGramsDto
 import fittibackendapp.dto.PcfRatioDto
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 import java.time.LocalDate
 
 @Service
@@ -72,15 +73,14 @@ class DietRecordQueryFacade(
         )
     }
 
-    fun getTargetPcfRatio(userId: Long): PcfRatioDto {
-        val targetPcfRatio = targetPcfRatioService.findByUserId(userId)
-
-
+    @Transactional
+    fun getOrCreateTargetPcfRatio(userId: Long): PcfRatioDto {
+        val targetPcfRatio = targetPcfRatioService.findOrSaveByUserId(userId)
 
         return PcfRatioDto(
-            proteinRatio = targetPcfRatio.protein,
-            carbohydrateRatio = targetPcfRatio.carbohydrate,
-            fatRatio = targetPcfRatio.fat,
+            proteinRatio = targetPcfRatio.proteinRatio,
+            carbohydrateRatio = targetPcfRatio.carbohydrateRatio,
+            fatRatio = targetPcfRatio.fatRatio,
         )
     }
 }
