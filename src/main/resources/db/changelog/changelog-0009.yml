@@ -1,0 +1,127 @@
+databaseChangeLog:
+  - changeSet:
+      id: fix db convention
+      author: twocastlenine
+      changes:
+        # diet_food_record table 수정
+        - dropForeignKeyConstraint:
+            baseTableName: diet_food_record
+            constraintName: fk_diet_diet_record_diet_id
+        - dropForeignKeyConstraint:
+            baseTableName: diet_food_record
+            constraintName: fk_diet_diet_record_diet_record_id
+        - renameColumn:
+            tableName: diet_food_record
+            oldColumnName: diet_id
+            newColumnName: nutrition_id
+            columnDataType: bigint
+        - renameColumn:
+            tableName: diet_food_record
+            oldColumnName: diet_record_id
+            newColumnName: diet_meal_record_id
+            columnDataType: bigint
+        - addForeignKeyConstraint:
+            baseTableName: diet_food_record
+            baseColumnNames: nutrition_id
+            constraintName: fk_diet_food_record_nutrition_id
+            referencedTableName: nutrition
+            referencedColumnNames: id
+        - addForeignKeyConstraint:
+            baseTableName: diet_food_record
+            baseColumnNames: diet_meal_record_id
+            constraintName: fk_diet_food_record_diet_meal_record_id
+            referencedTableName: diet_meal_record
+            referencedColumnNames: id
+        # diet_meal_record table 수정
+        - addForeignKeyConstraint:
+            baseTableName: diet_meal_record
+            baseColumnNames: user_id
+            constraintName: fk_diet_meal_record_user_id
+            referencedTableName: user
+            referencedColumnNames: id
+        # exercise table 수정
+        - dropForeignKeyConstraint:
+            baseTableName: exercise
+            constraintName: fk_exercise_kind_id
+        - renameColumn:
+            tableName: exercise
+            oldColumnName: kind
+            newColumnName: exercise_kind_id
+            columnDataType: bigint
+        - addForeignKeyConstraint:
+            baseTableName: exercise
+            baseColumnNames: exercise_kind_id
+            constraintName: fk_exercise_exercise_kind_id
+            referencedTableName: exercise_kind
+            referencedColumnNames: id
+        # exercise_exercise_record table 수정
+        - dropForeignKeyConstraint:
+            baseTableName: exercise_exercise_record
+            constraintName: fk_exercise_record_2_exercise_id
+        - addForeignKeyConstraint:
+            baseTableName: exercise_exercise_record
+            baseColumnNames: exercise_id
+            constraintName: fk_exercise_exercise_record_exercise_id
+            referencedTableName: exercise
+            referencedColumnNames: id
+        # exercise_session_record table 수정
+        - dropForeignKeyConstraint:
+            baseTableName: exercise_session_record
+            constraintName: fk_exercise_record_1_save_type_id
+        - dropForeignKeyConstraint:
+            baseTableName: exercise_session_record
+            constraintName: fk_exercise_record_1_user_id
+        - renameColumn:
+            tableName: exercise_session_record
+            oldColumnName: save_type
+            newColumnName: exercise_save_type_id
+            columnDataType: bigint
+        - addForeignKeyConstraint:
+            baseTableName: exercise_session_record
+            baseColumnNames: exercise_save_type_id
+            constraintName: fk_exercise_session_record_exercise_save_type_id
+            referencedTableName: exercise_save_type
+            referencedColumnNames: id
+        - addForeignKeyConstraint:
+            baseTableName: exercise_session_record
+            baseColumnNames: user_id
+            constraintName: fk_exercise_session_record_user_id
+            referencedTableName: user
+            referencedColumnNames: id
+        # login_type table 수정
+        - dropColumn:
+            tableName: login_type
+            columnName: created_by
+        - dropColumn:
+            tableName: login_type
+            columnName: updated_by
+        # user table 수정
+        - dropColumn:
+            tableName: user
+            columnName: created_by
+        - dropColumn:
+            tableName: user
+            columnName: updated_by
+        - dropForeignKeyConstraint:
+            baseTableName: user
+            constraintName: fk_user_role
+        - renameColumn:
+            tableName: user
+            oldColumnName: role
+            newColumnName: role_id
+            columnDataType: bigint
+        - addForeignKeyConstraint:
+            baseTableName: user
+            baseColumnNames: role_id
+            constraintName: fk_user_role_id
+            referencedTableName: role
+            referencedColumnNames: id
+
+
+
+
+
+
+
+
+

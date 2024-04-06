@@ -7,6 +7,6 @@ import java.io.Serializable
  */
 data class ExerciseDto(
     val name: String,
-    val kind: ExerciseKindDto,
+    val exerciseKind: ExerciseKindDto,
     val id: Long
 ): Serializable

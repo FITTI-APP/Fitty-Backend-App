@@ -25,8 +25,8 @@ class Exercise(
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "kind", nullable = false)
-    var kind: ExerciseKind,
+    @JoinColumn(name = "exercise_kind_id", nullable = false)
+    var exerciseKind: ExerciseKind,
 ): AuditLoggingBase() {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

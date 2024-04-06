@@ -30,6 +30,10 @@ https://fitti.atlassian.net/l/cp/YD5okCwd
 ## ERD
 
 다음은 백엔드의 ERD입니다.
+
+아래의 컨벤션 문서를 참조해 주세요. 자기 마음대로 고치면 안됩니다!!
+https://fitti.atlassian.net/wiki/spaces/NyangNyang/pages/7733318/DB
+
 유저 정보 테이블과 운동 관련 테이블, 식단 관련 테이블로 구성되어 있습니다.
 ![img.png](img1/img.png)
 

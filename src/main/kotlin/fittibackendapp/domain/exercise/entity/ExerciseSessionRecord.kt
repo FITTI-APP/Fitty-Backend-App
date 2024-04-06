@@ -38,8 +38,8 @@ class ExerciseSessionRecord(
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "save_type", nullable = false)
-    var saveType: ExerciseSaveType,
+    @JoinColumn(name = "exercise_save_type_id", nullable = false)
+    var exerciseSaveType: ExerciseSaveType,
 ): AuditLoggingBase() {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
