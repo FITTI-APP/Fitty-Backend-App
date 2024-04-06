@@ -20,7 +20,22 @@ class ExerciseSessionRecordMutationMapper(
         exerciseSessionRecordInput: ExerciseSessionRecordInput
     ): ExerciseSessionRecordDto {
         val userId = argumentResolver.getUserId()
+        validateExerciseSessionInput(exerciseSessionRecordInput)
+        
+        val exerciseExerciseRecordInputs = exerciseSessionRecordInput.exerciseExerciseRecordInputs
+        exerciseRecordMutationFacade.deleteExerciseExerciseRecords(
+            exerciseSessionRecordId = exerciseSessionRecordInput.exerciseSessionRecordId,
+            exerciseExerciseRecordInputs = exerciseExerciseRecordInputs,
+        )
+        return exerciseRecordMutationFacade.createOrUpdateExerciseSessionRecord(
+            userId = userId,
+            exerciseSessionRecordInput = exerciseSessionRecordInput,
+        )
+    }
 
+    fun validateExerciseSessionInput(
+        exerciseSessionRecordInput: ExerciseSessionRecordInput
+    ) {
         if (exerciseSessionRecordInput.exerciseSessionRecordId == null) {
             val exerciseExerciseRecordInputs = exerciseSessionRecordInput.exerciseExerciseRecordInputs
             val exerciseSetRecordInputs = exerciseExerciseRecordInputs.flatMap { it.exerciseSetRecordInputs }
@@ -31,15 +46,5 @@ class ExerciseSessionRecordMutationMapper(
             if (exerciseExerciseRecordIds.all { it == null } && exerciseSetRecordIds.all { it == null })
                 throw InvalidExerciseSessionInputException()
         }
-
-        val exerciseExerciseRecordInputs = exerciseSessionRecordInput.exerciseExerciseRecordInputs
-        exerciseRecordMutationFacade.deleteExerciseExerciseRecords(
-            exerciseSessionRecordId = exerciseSessionRecordInput.exerciseSessionRecordId,
-            exerciseExerciseRecordInputs = exerciseExerciseRecordInputs,
-        )
-        return exerciseRecordMutationFacade.createOrUpdateExerciseSessionRecord(
-            userId = userId,
-            exerciseSessionRecordInput = exerciseSessionRecordInput,
-        )
     }
 }
