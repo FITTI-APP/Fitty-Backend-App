@@ -1,5 +1,5 @@
 type PcfRatio{
-    protein: Float!,
-    carbohydrate: Float!,
-    fat: Float!
+    proteinRatio: Float!,
+    carbohydrateRatio: Float!,
+    fatRatio: Float!
 }
