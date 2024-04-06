@@ -1,4 +1,0 @@
-extend type Query{
-    # 목표 탄단지 섭취량 비율
-    getTargetPcfRatio: PcfRatio!
-}

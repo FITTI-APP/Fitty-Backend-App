@@ -18,8 +18,16 @@ class DietMealRecordService(
     private val dietMealRecordMapStruct: DietMealRecordMapStruct,
     private val userRepository: UserRepository
 ) {
-    fun findDietMealRecordsBetweenDays(userId: Long, fromDate: LocalDate, toDate: LocalDate): List<DietMealRecordDto> {
-        val dietMealRecords = dietMealRecordRepository.findDietMealRecordsBetweenDays(userId, fromDate, toDate)
+    fun findDietMealRecordsBetweenDays(
+        userId: Long,
+        fromDate: LocalDate,
+        toDate: LocalDate
+    ): List<DietMealRecordDto> {
+        val dietMealRecords = dietMealRecordRepository.findDietMealRecordsBetweenDays(
+            userId = userId,
+            fromDate = fromDate.atStartOfDay(),
+            toDate = toDate.atTime(LocalDateTime.MAX.toLocalTime()),
+        )
         return dietMealRecordMapStruct.toDtos(dietMealRecords)
     }
 
@@ -33,11 +41,11 @@ class DietMealRecordService(
         val dietMealRecord = DietMealRecord(
             user = user,
             dateTime = dateTime,
-            memo = memo
+            memo = memo,
         ).run {
             dietMealRecordRepository.save(this)
         }
-        
+
         return dietMealRecordMapStruct.toDto(dietMealRecord)
     }
 }

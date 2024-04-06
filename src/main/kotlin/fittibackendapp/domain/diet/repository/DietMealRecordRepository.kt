@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.query.Param
 import org.springframework.stereotype.Repository
-import java.time.LocalDate
+import java.time.LocalDateTime
 
 @Repository
 interface DietMealRecordRepository: JpaRepository<DietMealRecord, Long> {
@@ -14,8 +14,8 @@ interface DietMealRecordRepository: JpaRepository<DietMealRecord, Long> {
         @Param("userId")
         userId: Long,
         @Param("fromDate")
-        fromDate: LocalDate,
+        fromDate: LocalDateTime,
         @Param("toDate")
-        toDate: LocalDate
+        toDate: LocalDateTime
     ): List<DietMealRecord>
 }

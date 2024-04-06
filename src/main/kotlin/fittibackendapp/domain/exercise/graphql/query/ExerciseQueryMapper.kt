@@ -11,10 +11,10 @@ class ExerciseQueryMapper(
     private val exerciseService: ExerciseService,
 ) {
     @QueryMapping
-    fun exercisesByKindId(
+    fun exercisesByExerciseKindId(
         @Argument
-        kindId: Long
+        exerciseKindId: Long
     ): List<ExerciseDto> {
-        return exerciseService.listExercisesByKindId(kindId)
+        return exerciseService.listExercisesByExerciseKindId(exerciseKindId)
     }
 }

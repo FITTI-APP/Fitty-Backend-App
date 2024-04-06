@@ -11,10 +11,10 @@ class ExerciseService(
     private val exerciseMapstruct: ExerciseMapstruct
 ) {
 
-    fun listExercisesByKindId(
-        kindId: Long
+    fun listExercisesByExerciseKindId(
+        exerciseKindId: Long
     ): List<ExerciseDto> {
-        val exercises = exerciseRepository.findAllByKindId(kindId)
+        val exercises = exerciseRepository.findAllByExerciseKindId(exerciseKindId)
         return exerciseMapstruct.toDtos(exercises)
     }
 }
