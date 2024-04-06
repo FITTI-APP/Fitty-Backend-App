@@ -13,6 +13,23 @@ class ExerciseSessionRecordQueryMapper(
     private val exerciseSessionRecordService: ExerciseSessionRecordService,
     private val argumentResolver: ArgumentResolver,
 ) {
+
+    @QueryMapping
+    fun exerciseSessionRecordsBetweenDates(
+        @Argument
+        fromDate: LocalDate,
+        @Argument
+        toDate: LocalDate,
+    ): List<ExerciseSessionRecordDto> {
+        val userId = argumentResolver.getUserId()
+
+        return exerciseSessionRecordService.listBetweenDates(
+            userId = userId,
+            fromDate = fromDate,
+            toDate = toDate,
+        )
+    }
+
     @QueryMapping
     fun exerciseSessionRecordsByDate(
         @Argument

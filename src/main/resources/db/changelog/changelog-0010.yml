@@ -1,0 +1,20 @@
+databaseChangeLog:
+  - changeSet:
+      id: rename target_pcf_ratio
+      author: twocastlenine
+      changes:
+        - renameColumn:
+            tableName: target_pcf_ratio
+            oldColumnName: protein
+            newColumnName: protein_ratio
+            columnDataType: double
+        - renameColumn:
+            tableName: target_pcf_ratio
+            oldColumnName: carbohydrate
+            newColumnName: carbohydrate_ratio
+            columnDataType: double
+        - renameColumn:
+            tableName: target_pcf_ratio
+            oldColumnName: fat
+            newColumnName: fat_ratio
+            columnDataType: double
