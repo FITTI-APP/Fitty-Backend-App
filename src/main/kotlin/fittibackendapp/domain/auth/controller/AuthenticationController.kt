@@ -38,6 +38,15 @@ class AuthenticationController(
         @RequestBody
         loginRequest: LoginRequest,
     ): LoginResponse {
+        val emailRegex = "^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$"
+        val passwordRegex = "^(?=.*[a-zA-Z])(?=.*\\d)(?=.*\\W).{8,20}$"
+        if (!loginRequest.email.matches(emailRegex.toRegex())) {
+            throw InvalidateEmailException()
+        }
+        if (!loginRequest.password.matches(passwordRegex.toRegex())) {
+            throw InvalidatePasswordException()
+        }
+        
         val token = authenticationService.login(
             email = loginRequest.email,
             password = loginRequest.password,

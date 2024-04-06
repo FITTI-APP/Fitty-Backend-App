@@ -34,11 +34,6 @@ class OAuth2CustomService(
         val delegateUserService = DefaultOAuth2UserService()
         val oAuth2User = delegateUserService.loadUser(userRequest)
 
-        // val registrationId =
-        //      // "google", "kakao", "facebook"...
-        // val userNameAttributeName =
-        //     userRequest.clientRegistration.providerDetails.userInfoEndpoint.userNameAttributeName
-
         // val picture = oAuth2User.attributes.get("picture") as String
         val loginType = userRequest.clientRegistration.registrationId.uppercase()
 
@@ -49,7 +44,6 @@ class OAuth2CustomService(
 
         if (user == null) {
             // val picture = oAuth2User.attributes.get("picture") as String
-            // val loginType = LoginType.GOOGLE // todo KAKAO, NAVER, FACEBOOK
             saveOrUpdate(
                 email = email,
                 name = name,

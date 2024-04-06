@@ -33,6 +33,22 @@ class ExerciseSessionRecordService(
         exerciseSessionRecordRepository.delete(exerciseSessionRecord)
     }
 
+    fun listBetweenDates(
+        userId: Long,
+        fromDate: LocalDate,
+        toDate: LocalDate,
+    ): List<ExerciseSessionRecordDto> {
+        val user = userRepository.findByIdOrNull(userId) ?: throw NotFoundUserException()
+
+        val exerciseSessionRecords = exerciseSessionRecordRepository.findAllByUserAndStartTimeBetween(
+            user = user,
+            startTime = fromDate.atStartOfDay(),
+            endTime = toDate.atTime(LocalDateTime.MAX.toLocalTime()),
+        ) // todo QueryDsl
+
+        return exerciseSessionRecordMapStruct.toDtos(exerciseSessionRecords)
+    }
+
     fun listByDate(
         userId: Long,
         date: LocalDate,
@@ -41,8 +57,8 @@ class ExerciseSessionRecordService(
 
         val exerciseSessionRecords = exerciseSessionRecordRepository.findAllByUserAndStartTimeBetween(
             user = user,
-            startTime = date.atStartOfDay(),
             endTime = date.atTime(LocalDateTime.MAX.toLocalTime()),
+            startTime = date.atStartOfDay(),
         ) // todo QueryDsl
 
         return exerciseSessionRecordMapStruct.toDtos(exerciseSessionRecords)
@@ -68,17 +84,17 @@ class ExerciseSessionRecordService(
         memo: String,
         startTime: LocalDateTime,
         endTime: LocalDateTime,
-        saveTypeId: Long,
+        exerciseSaveTypeId: Long,
     ): ExerciseSessionRecordDto {
         val user = userRepository.findByIdOrNull(userId) ?: throw NotFoundUserException()
-        val saveType =
-            exerciseSaveTypeRepository.findByIdOrNull(saveTypeId) ?: throw NotFoundExerciseSaveTypeException()
+        val exerciseSaveType =
+            exerciseSaveTypeRepository.findByIdOrNull(exerciseSaveTypeId) ?: throw NotFoundExerciseSaveTypeException()
         val exerciseSessionRecord = ExerciseSessionRecord(
             user = user,
             memo = memo,
             startTime = startTime,
             endTime = endTime,
-            saveType = saveType,
+            exerciseSaveType = exerciseSaveType,
         ).run {
             exerciseSessionRecordRepository.save(this)
         }
@@ -93,11 +109,11 @@ class ExerciseSessionRecordService(
         memo: String,
         startTime: LocalDateTime,
         endTime: LocalDateTime,
-        saveTypeId: Long,
+        exerciseSaveTypeId: Long,
     ): ExerciseSessionRecordDto {
         val user = userRepository.findByIdOrNull(userId) ?: throw NotFoundUserException()
-        val saveType =
-            exerciseSaveTypeRepository.findByIdOrNull(saveTypeId) ?: throw NotFoundExerciseSaveTypeException()
+        val exerciseSaveType =
+            exerciseSaveTypeRepository.findByIdOrNull(exerciseSaveTypeId) ?: throw NotFoundExerciseSaveTypeException()
         val exerciseSessionRecord = exerciseSessionRecordRepository.findByIdOrNull(exerciseSessionRecordId)
             ?: throw NotFoundExerciseSessionRecordException()
 
@@ -106,7 +122,7 @@ class ExerciseSessionRecordService(
             this.memo = memo
             this.startTime = startTime
             this.endTime = endTime
-            this.saveType = saveType
+            this.exerciseSaveType = exerciseSaveType
         }.run {
             exerciseSessionRecordRepository.save(this)
         }

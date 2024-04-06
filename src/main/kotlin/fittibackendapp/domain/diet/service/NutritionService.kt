@@ -2,7 +2,7 @@ package fittibackendapp.domain.diet.service
 
 import fittibackendapp.domain.diet.repository.NutritionRepository
 import fittibackendapp.dto.NutritionDto
-import fittibackendapp.dto.mapstruct.DietMapStruct
+import fittibackendapp.dto.mapstruct.NutritionMapStruct
 import fittibackendapp.exception.NotFoundNutritionException
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service
 @Service
 class NutritionService(
     private val nutritionRepository: NutritionRepository,
-    private val nutritionMapStruct: DietMapStruct
+    private val nutritionMapStruct: NutritionMapStruct
 ) {
     fun findById(id: Long): NutritionDto {
         val nutrition = nutritionRepository.findByIdOrNull(id) ?: throw NotFoundNutritionException()

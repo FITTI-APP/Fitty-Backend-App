@@ -1,4 +1,53 @@
 extend type Mutation {
+    """
+    운동 기록을 추가 혹은 수정합니다. 그날의 운동 종목과 세트들을 입력에 포함해야 합니다.
+    추가할시에 ID는 null로 입력해야 합니다.
+    수정할시에 ID는 수정하고자 하는 운동 기록의 ID를 입력해야 합니다.
+    종목과 세트의 ID가 null일시 추가되며 마찬가지로 수정시에는 ID을 입력해야합니다.
+    종목과 세트의 ID가 기존에 있던것이 제외된 상태로 쿼리를 날리시에 해당 종목과 세트는 삭제됩니다.
+
+    아래는 대표 예시입니다. ID가 없으므로 추가하는 예시입니다.
+    {
+    "exerciseSessionRecordInput": {
+    "memo":"session test",
+    "startTime": "2023-11-13T00:00:05",
+    "endTime": "2023-11-13T00:01:10",
+    "exerciseSaveTypeId": 1,
+    "exerciseExerciseRecordInputs": {
+    "exerciseId": 1,
+    "order": 1,
+    "memo": "exercise test",
+    "exerciseSetRecordInputs": [
+    {
+    "memo": "set test",
+    "order": 1,
+    "weight": 65,
+    "reps": 5,
+    "distance": 0,
+    "totalTime": "00:01:20"
+    },
+    {
+    "memo": "set test",
+    "order": 2,
+    "weight": 65,
+    "reps": 4,
+    "distance": 0,
+    "totalTime": "00:01:20"
+    },
+    {
+    "memo": "set test",
+    "order": 3,
+    "weight": 65,
+    "reps": 3,
+    "distance": 0,
+    "totalTime": "00:01:20"
+    }
+    ]
+    }
+    }
+    }
+
+    """
     putExerciseSessionRecord(exerciseSessionRecordInput: ExerciseSessionRecordInput!): ExerciseSessionRecord
 
     "운동 기록을 삭제합니다. 하위의 운동 종목과 세트 기록도 삭제됩니다. 성공 여부를 반환합니다."

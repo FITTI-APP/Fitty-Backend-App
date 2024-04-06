@@ -23,11 +23,15 @@ class DietQueryMapper(
     ): PcfAmountInGramsDto {
         val userId = argumentResolver.getUserId()
 
-        return dietRecordQueryFacade.getPcfAmountInGramsBetweenDays(userId, fromDate, toDate)
+        return dietRecordQueryFacade.getPcfAmountInGramsBetweenDays(
+            userId = userId,
+            fromDate = fromDate,
+            toDate = toDate,
+        )
     }
 
     @QueryMapping
-    fun getPcfRatioInGramsBetweenDays(
+    fun getPcfRatioInKcalBetweenDays(
         @Argument
         fromDate: LocalDate,
         @Argument
@@ -35,13 +39,10 @@ class DietQueryMapper(
     ): PcfRatioDto {
         val userId = argumentResolver.getUserId()
 
-        return dietRecordQueryFacade.getPcfRatioInGramsBetweenDays(userId, fromDate, toDate)
-    }
-
-    @QueryMapping
-    fun getTargetPcfRatio(): PcfRatioDto {
-        val userId = argumentResolver.getUserId()
-
-        return dietRecordQueryFacade.getTargetPcfRatio(userId)
+        return dietRecordQueryFacade.getPcfRatioInKcalBetweenDays(
+            userId = userId,
+            fromDate = fromDate,
+            toDate = toDate,
+        )
     }
 }

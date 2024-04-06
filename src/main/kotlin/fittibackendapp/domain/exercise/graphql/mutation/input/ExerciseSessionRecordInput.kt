@@ -7,7 +7,7 @@ data class ExerciseSessionRecordInput(
     val memo: String,
     val startTime: LocalDateTime,
     val endTime: LocalDateTime,
-    val saveTypeId: Long,
+    val exerciseSaveTypeId: Long,
     val exerciseExerciseRecordInputs: List<ExerciseExerciseRecordInput>
 )
 
