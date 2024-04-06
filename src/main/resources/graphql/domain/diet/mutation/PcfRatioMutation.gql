@@ -1,0 +1,7 @@
+extend type Mutation {
+    """
+    유저의 목표 탄단지 섭취량 비율(칼로리단위)을 반환합니다. 만약 설정이 되어있지 않다면 기본값으로 생성되어 반환합니다.
+    0.4: 탄수화물, 0.3: 단백질, 0.3: 지방
+    """
+    getOrCreateTargetPcfRatio: PcfRatio!
+}

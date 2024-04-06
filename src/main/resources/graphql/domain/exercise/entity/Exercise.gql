@@ -1,5 +1,5 @@
 type Exercise {
     name: String!,
-    kind: ExerciseKind!,
+    exerciseKind: ExerciseKind!,
     id: ID!
 }

@@ -4,7 +4,7 @@ type ExerciseSessionRecord {
     endTime: LocalDateTime!,
     memo: String!,
     id: ID!
-    saveType: ExerciseSaveType!
+    exerciseSaveType: ExerciseSaveType!
 }
 
 extend type ExerciseSessionRecord  {

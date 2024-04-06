@@ -3,6 +3,6 @@ input ExerciseSessionRecordInput{
     memo: String!,
     startTime: LocalDateTime!,
     endTime: LocalDateTime!,
-    saveTypeId: Long!,
+    exerciseSaveTypeId: Long!,
     exerciseExerciseRecordInputs: [ExerciseExerciseRecordInput!]!
 }
