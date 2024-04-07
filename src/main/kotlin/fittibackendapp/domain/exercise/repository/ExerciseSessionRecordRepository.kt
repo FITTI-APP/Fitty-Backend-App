@@ -12,9 +12,4 @@ interface ExerciseSessionRecordRepository: JpaRepository<ExerciseSessionRecord, 
         startTime: LocalDateTime,
         endTime: LocalDateTime
     ): List<ExerciseSessionRecord>
-
-    fun findByUserAndId(
-        user: User,
-        id: Long,
-    ): ExerciseSessionRecord?
 }

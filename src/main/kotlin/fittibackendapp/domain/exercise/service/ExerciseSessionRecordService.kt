@@ -66,12 +66,8 @@ class ExerciseSessionRecordService(
 
     fun findById(
         id: Long,
-        userId: Long,
     ): ExerciseSessionRecordDto {
-        val user = userRepository.findByIdOrNull(userId) ?: throw NotFoundUserException()
-
-        val exerciseSessionRecord = exerciseSessionRecordRepository.findByUserAndId(
-            user = user,
+        val exerciseSessionRecord = exerciseSessionRecordRepository.findByIdOrNull(
             id = id,
         ) ?: throw NotFoundExerciseSessionRecordException()
 
@@ -130,4 +126,3 @@ class ExerciseSessionRecordService(
         return exerciseSessionRecordMapStruct.toDto(updatedExerciseSessionRecord)
     }
 }
-

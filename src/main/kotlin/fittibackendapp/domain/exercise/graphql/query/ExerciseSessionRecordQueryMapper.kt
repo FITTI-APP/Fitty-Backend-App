@@ -48,10 +48,8 @@ class ExerciseSessionRecordQueryMapper(
         @Argument
         id: Long,
     ): ExerciseSessionRecordDto {
-        val userId = argumentResolver.getUserId()
         return exerciseSessionRecordService.findById(
             id = id,
-            userId = userId,
         )
     }
 }

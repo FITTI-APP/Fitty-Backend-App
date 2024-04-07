@@ -43,7 +43,7 @@ class DietFoodRecordService(
         val dietFoodRecord = DietFoodRecord(
             dietMealRecord = dietMealRecord,
             weight = weight,
-            nutrition = nutrition
+            nutrition = nutrition,
         ).run {
             dietFoodRecordRepository.save(this)
         }

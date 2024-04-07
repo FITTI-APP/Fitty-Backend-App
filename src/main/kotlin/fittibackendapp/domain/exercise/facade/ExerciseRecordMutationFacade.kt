@@ -127,11 +127,11 @@ class ExerciseRecordMutationFacade(
             .listExerciseExerciseRecordsByExerciseSessionRecordId(exerciseSessionRecordId)
             .map { it.id }
 
-        val exerciseSetRecords = exerciseSetRecordService
+        val exerciseSetRecordIds = exerciseSetRecordService
             .listByExerciseExerciseRecordIds(exerciseExerciseRecordIds)
             .map { it.id }
 
-        exerciseSetRecordService.deleteAll(exerciseSetRecords)
+        exerciseSetRecordService.deleteAll(exerciseSetRecordIds)
         exerciseExerciseRecordService.deleteAll(exerciseExerciseRecordIds)
         exerciseSessionRecordService.delete(
             exerciseSessionRecordId = exerciseSessionRecordId,
