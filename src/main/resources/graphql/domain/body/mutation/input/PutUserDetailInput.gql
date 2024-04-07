@@ -1,0 +1,10 @@
+input PutUserDetailInput {
+    id: Long
+    age: Int
+    height: Float
+    weight: Float
+    muscleMass: Float
+    bodyFat: Float
+    targetWeight: Float
+    targetMuscleMass: Float
+}

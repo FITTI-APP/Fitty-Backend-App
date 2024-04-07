@@ -1,0 +1,4 @@
+extend type Mutation {
+    "UserDetail mutation to put user detail."
+    putUserDetail(putUserDetailInput: PutUserDetailInput!): UserDetail!
+}

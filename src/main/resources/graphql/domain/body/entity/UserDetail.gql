@@ -1,0 +1,11 @@
+type UserDetail{
+    id: ID!,
+    age: Int,
+    height: Float,
+    weight: Float,
+    muscleMass: Float,
+    bodyFat: Float,
+    targetWeight: Float,
+    targetMuscleMass: Float,
+    user: User!,
+}
