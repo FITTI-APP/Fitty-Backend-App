@@ -14,8 +14,8 @@ import jakarta.validation.constraints.Size
 @Table(name = "role")
 class Role(
 
-    @field:Size(max = 255)
-    @field:NotNull
+    @Size(max = 255)
+    @NotNull
     @Column(name = "name", nullable = false)
     var name: String,
 

@@ -21,7 +21,7 @@ class ExerciseSessionRecordMutationMapper(
     ): ExerciseSessionRecordDto {
         val userId = argumentResolver.getUserId()
         validateExerciseSessionInput(exerciseSessionRecordInput)
-        
+
         val exerciseExerciseRecordInputs = exerciseSessionRecordInput.exerciseExerciseRecordInputs
         exerciseRecordMutationFacade.deleteExerciseExerciseRecords(
             exerciseSessionRecordId = exerciseSessionRecordInput.exerciseSessionRecordId,
@@ -33,7 +33,20 @@ class ExerciseSessionRecordMutationMapper(
         )
     }
 
-    fun validateExerciseSessionInput(
+    @MutationMapping
+    fun deleteExerciseSessionRecord(
+        @Argument
+        exerciseSessionRecordId: Long
+    ): Boolean {
+        val userId = argumentResolver.getUserId()
+        exerciseRecordMutationFacade.deleteExerciseSessionRecord(
+            userId = userId,
+            exerciseSessionRecordId = exerciseSessionRecordId,
+        )
+        return true
+    }
+
+    private fun validateExerciseSessionInput(
         exerciseSessionRecordInput: ExerciseSessionRecordInput
     ) {
         if (exerciseSessionRecordInput.exerciseSessionRecordId == null) {

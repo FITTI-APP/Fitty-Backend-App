@@ -23,6 +23,16 @@ class ExerciseSessionRecordService(
     private val exerciseSaveTypeRepository: ExerciseSaveTypeRepository,
 ) {
 
+    @Transactional
+    fun delete(
+        exerciseSessionRecordId: Long,
+    ) {
+        val exerciseSessionRecord = exerciseSessionRecordRepository.findByIdOrNull(exerciseSessionRecordId)
+            ?: throw NotFoundExerciseSessionRecordException()
+
+        exerciseSessionRecordRepository.delete(exerciseSessionRecord)
+    }
+
     fun listBetweenDates(
         userId: Long,
         fromDate: LocalDate,
@@ -56,12 +66,8 @@ class ExerciseSessionRecordService(
 
     fun findById(
         id: Long,
-        userId: Long,
     ): ExerciseSessionRecordDto {
-        val user = userRepository.findByIdOrNull(userId) ?: throw NotFoundUserException()
-
-        val exerciseSessionRecord = exerciseSessionRecordRepository.findByUserAndId(
-            user = user,
+        val exerciseSessionRecord = exerciseSessionRecordRepository.findByIdOrNull(
             id = id,
         ) ?: throw NotFoundExerciseSessionRecordException()
 
@@ -120,4 +126,3 @@ class ExerciseSessionRecordService(
         return exerciseSessionRecordMapStruct.toDto(updatedExerciseSessionRecord)
     }
 }
-
