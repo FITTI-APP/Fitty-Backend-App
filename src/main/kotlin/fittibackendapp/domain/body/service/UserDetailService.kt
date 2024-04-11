@@ -23,7 +23,7 @@ class UserDetailService(
         putUserDetailInput: PutUserDetailInput,
         userId: Long,
     ): UserDetailDto {
-        val user = userRepository.findByIdOrNull(userId) ?: throw NotFoundUserDetailException()
+        val user = userRepository.findByIdOrNull(userId) ?: throw NotFoundUserException()
 
         val userDetail = if (putUserDetailInput.id != null) {
             userDetailRepository.findByIdOrNull(putUserDetailInput.id)
@@ -36,7 +36,7 @@ class UserDetailService(
                     this.targetWeight = putUserDetailInput.targetWeight
                     this.targetMuscleMass = putUserDetailInput.targetMuscleMass
                     userDetailRepository.save(this)
-                } ?: throw NotFoundUserException()
+                } ?: throw NotFoundUserDetailException()
         }
         else {
             userDetailRepository.save(
