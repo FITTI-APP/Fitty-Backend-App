@@ -4,8 +4,8 @@ spring:
       client:
         registration:
           facebook:
-            client-id: "937430724441233"
-            client-secret: "b45e1c38c53967f1722591140db50afa"
+            client-id: ENC(usctfEPy/RuSl8xQQCQj41tcD0sl+VnVWHwe4qkenlc=)
+            client-secret: ENC(WDv60F7EEKX3Ssf5IpwPXKp+NfWRtrU1TTw7Daws1c4maSYp+anV7RFGI22z2RWP)
             #            redirect-uri: "{baseUrl}/login/oauth2/code/facebook"
             redirect-uri: "http://localhost:8080/login/oauth2/code/facebook"
             #            authorization-grant-type: authorization_code
@@ -14,8 +14,8 @@ spring:
               - public_profile
           #            client-name: Facebook
           naver:
-            client-id: "idvEjrVyEM0SM7AtoSz_"
-            client-secret: "fVmGtsHZfp"
+            client-id: ENC(BXKH5s+hy8orrXVeFUcwoQ+iUJJdKKT2Z9pKLS+AL8w=)
+            client-secret: ENC(Zf5qFurjVhHLCFTak+2LiRUKPWyWyqHN)
             #            redirect-uri: "{baseUrl}/login/oauth2/code/naver"
             redirect-uri: "http://localhost:8080/login/oauth2/code/naver"
             authorization-grant-type: authorization_code
@@ -27,8 +27,8 @@ spring:
             client-name: Naver
 
           google:
-            client-id: "145831654696-kk74q7hpk53qkg8c16lpcal6fqn94rrg.apps.googleusercontent.com"
-            client-secret: "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"
+            client-id: ENC(fqWDPN+6uIzNQ8t+WQrSTixQOEyIqqplhgzpmOlxx+tNjBobgTxrbiwvsNS6uL036uVYR1AeIA0ATArA4DJdVE+zLzLVyOVsLPgP/reTrba8kxOvqiGryA==)
+            client-secret: ENC(K9IoUVIjMwSSEyWNnipXl0HLSPXY2pC8QGmOTVS07OkQPe2ZJYDiOYFRkx/0U33d)
             scope:
               - email
               - profile

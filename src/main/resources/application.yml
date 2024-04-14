@@ -2,8 +2,8 @@ spring:
   email:
     host: smtp.gmail.com
     port: 587
-    username: fitti.public.email@gmail.com
-    password: zboqzzzaurqfydmp
+    username: ENC(Z0LrNmjLaQ8DzFHo/6Z0WXSveZWQCLnX/2WpCgm/43oKD0tpEt3yGg==)
+    password: ENC(4dHBUamGCtCyFT1K5i3hVaRclHm1ou3hJGYYnzYo2Cw=)
     properties:
       smtp:
         auth: true
