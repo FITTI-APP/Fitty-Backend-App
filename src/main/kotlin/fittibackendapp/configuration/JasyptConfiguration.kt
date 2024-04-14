@@ -3,19 +3,19 @@ package fittibackendapp.configuration
 import org.jasypt.encryption.StringEncryptor
 import org.jasypt.encryption.pbe.PooledPBEStringEncryptor
 import org.jasypt.encryption.pbe.config.SimpleStringPBEConfig
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import org.springframework.core.env.Environment
 
 @Configuration
 class JasyptConfiguration(
-    private val environment: Environment
+    @Value("\${JASYPT_PASSWORD}") private val password: String
 ) {
     @Bean("jasyptStringEncryptor")
     fun stringEncryptor(): StringEncryptor {
         val encryptor = PooledPBEStringEncryptor()
         val config = SimpleStringPBEConfig()
-        config.setPassword(environment.getProperty("jasypt.encryptor.password"))
+        config.setPassword(password)
         config.algorithm = "PBEWITHHMACSHA512ANDAES_256"
         config.setKeyObtentionIterations("1000")
         config.setPoolSize("1")
