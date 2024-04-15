@@ -12,6 +12,15 @@ spring:
     host: ${HOST}
     port: ${DB_PORT}
     dbname: ${DB_NAME}
+  data:
+    redis:
+      host: ${REDIS_HOST}
+      port: 6379
+      lettuce:
+        pool:
+          max-active: 10
+          max-idle: 2
+          min-idle: 1
 
 server:
   port: 5000 # AWS Nginx default port
