@@ -32,7 +32,6 @@ class EmailVerificationService(
         } catch (e: RuntimeException) {
             throw RuntimeException("Failed to save auth code to redis")
         }
-
         try {
             emailSender.send(message)
         } catch (

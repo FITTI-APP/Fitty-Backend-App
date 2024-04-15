@@ -19,7 +19,7 @@ spring:
       lettuce:
         pool:
           max-active: 10
-          max-idle: 2
+          max-idle: 1
           min-idle: 1
 
 server:
