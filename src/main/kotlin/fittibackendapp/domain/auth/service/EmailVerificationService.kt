@@ -25,12 +25,12 @@ class EmailVerificationService(
         var code = RandomStringUtils.randomNumeric(4)
         message.text = "$EMAIL_CONTENT\n인증번호: $code"
         message.subject = EMAIL_TITLE
-        // try {
-        //     redisService.deleteByKey(AUTH_CODE_PREFIX + email)
-        //     redisService.setValueWithExpire(AUTH_CODE_PREFIX + email, code, Duration.ofMillis(authCodeExpirationMills))
-        // } catch (e: RuntimeException) {
-        //     throw RuntimeException("Failed to save auth code to redis")
-        // }
+        try {
+            redisService.deleteByKey(AUTH_CODE_PREFIX + email)
+            redisService.setValueWithExpire(AUTH_CODE_PREFIX + email, code, Duration.ofMillis(authCodeExpirationMills))
+        } catch (e: RuntimeException) {
+            throw RuntimeException("Failed to save auth code to redis")
+        }
 
         try {
             emailSender.send(message)

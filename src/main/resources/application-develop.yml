@@ -14,8 +14,7 @@ spring:
     dbname: ${DB_NAME}
   data:
     redis:
-      #      host: ${REDIS_HOST}
-      host: redis-dev-ro.hzfj5l.ng.0001.apn2.cache.amazonaws.com
+      host: ${REDIS_HOST}
       port: 6379
       lettuce:
         pool:
