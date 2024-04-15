@@ -56,7 +56,7 @@ class ExerciseSessionRecordMutationMapper(
             val exerciseExerciseRecordIds = exerciseExerciseRecordInputs.map { it.exerciseExerciseRecordId }
             val exerciseSetRecordIds = exerciseSetRecordInputs.map { it.exerciseSetRecordId }
 
-            if (exerciseExerciseRecordIds.all { it == null } && exerciseSetRecordIds.all { it == null })
+            if (exerciseExerciseRecordIds.any { it != null } && exerciseSetRecordIds.any { it != null })
                 throw InvalidExerciseSessionInputException()
         }
     }
