@@ -21,7 +21,6 @@ spring:
           max-active: 10
           max-idle: 1
           min-idle: 1
-
 server:
   port: 5000 # AWS Nginx default port
   tomcat:
