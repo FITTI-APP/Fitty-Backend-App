@@ -30,7 +30,7 @@ class EmailVerificationService(
             redisService.deleteByKey(AUTH_CODE_PREFIX + email)
             redisService.setValueWithExpire(AUTH_CODE_PREFIX + email, code, Duration.ofMillis(authCodeExpirationMills))
         } catch (e: RuntimeException) {
-            throw RuntimeException("Failed to save auth code to redis")
+            throw RuntimeException("Failed to save auth code to redis $e")
         }
         try {
             emailSender.send(message)
