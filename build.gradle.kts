@@ -161,3 +161,13 @@ allOpen {
     annotation("jakarta.persistence.Entity")
 }
 
+koverReport {
+    filters {
+        excludes {
+            annotatedBy (
+                "org.springframework.context.annotation.Configuration",
+                "KoverIgnore"
+            )
+        }
+    }
+}
