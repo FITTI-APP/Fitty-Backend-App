@@ -17,7 +17,7 @@ class FittiJwtVerifier(
 ): JwtVerifier {
     override val tokenVerifier: JWTVerifier = JWT
         .require(tokenAlgorithm)
-        .withClaimPresence("name")
+        .withClaimPresence("email")
         .withClaimPresence("userId")
         .withClaimPresence("role")
         .build()
@@ -31,18 +31,18 @@ class FittiJwtVerifier(
 
     override fun verifyToken(bearerToken: String): TokenDto {
         try {
-            val verification = when (val token = bearerToken.substring(7)) {
+            val verification = when (val token = bearerToken.split(" ")[1]) {
                 "fitti"
                 -> TokenDto(
-                    name = "fitti",
+                    email = "fitti",
                     userId = 1,
                     role = 2,
                 )
 
                 else -> {
-                    val verifiedJWT = tokenVerifier.verify(bearerToken)
+                    val verifiedJWT = tokenVerifier.verify(token)
                     TokenDto(
-                        name = verifiedJWT.getClaim("name").asString(),
+                        email = verifiedJWT.getClaim("email").asString(),
                         userId = verifiedJWT.getClaim("userId").asLong(),
                         role = verifiedJWT.getClaim("role").asLong(),
                     )
@@ -52,7 +52,7 @@ class FittiJwtVerifier(
         } catch (e: TokenExpiredException) {
             throw JwtTokenExpiredException()
         } catch (e: JWTVerificationException) {
-            throw AuthenticateFailedException()
+            throw AuthenticateFailedException(e)
         }
     }
 }

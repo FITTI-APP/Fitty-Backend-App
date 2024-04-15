@@ -8,7 +8,6 @@ import fittibackendapp.domain.auth.entity.User
 import fittibackendapp.domain.auth.repository.LoginTypeRepository
 import fittibackendapp.domain.auth.repository.RoleRepository
 import fittibackendapp.domain.auth.repository.UserRepository
-import fittibackendapp.exception.DuplicatedEmailException
 import jakarta.transaction.Transactional
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService
@@ -35,42 +34,29 @@ class OAuth2CustomService(
         val oAuth2User = delegateUserService.loadUser(userRequest)
 
         // val picture = oAuth2User.attributes.get("picture") as String
-        val loginType = userRequest.clientRegistration.registrationId.uppercase()
+        val loginTypeName = userRequest.clientRegistration.registrationId.uppercase()
 
-        val (email, name) = getUserData(oAuth2User.attributes, loginType)
+        val (email, name) = getUserData(oAuth2User.attributes, loginTypeName)
 
-        var user = userRepository.findByEmail(email)
+        val loginType =
+            loginTypeRepository.findByName(loginTypeName) ?: throw RuntimeException("EMAIL Login Type이  없습니다.")
 
-
-        if (user == null) {
-            // val picture = oAuth2User.attributes.get("picture") as String
-            saveOrUpdate(
-                email = email,
-                name = name,
-                oauth2LoginType = loginType,
-            )
-        }
-        else {
-            // todo n+1 but 로그인타입이 5가지뿐
-            if (user.loginType.name != LoginType.GOOGLE) { // todo KAKAO, NAVER, FACEBOOK registrationId와 비교.
-                throw DuplicatedEmailException()
-            }
-        }
+        val user = userRepository.findByEmailAndLoginType(email, loginType) ?: saveOrUpdate(
+            email = email,
+            name = name,
+            oauth2LoginType = loginType,
+        )
+        // todo n+1 but 로그인타입이 5가지뿐
 
         val token = JWT.create()
             .withClaim("email", email)
-            .withClaim("password", "")
-            .withClaim("role", "ROLE_USER")
+            .withClaim("userId", user.id)
+            .withClaim("role", user.role.id)
             .withExpiresAt(
                 Date.from(
-                    LocalDateTime
-                        .now()
-                        .plusDays(1)
-                        .atZone(ZoneId.of("Asia/Seoul"))
-                        .toInstant(),
+                    LocalDateTime.now().plusDays(1).atZone(ZoneId.of("Asia/Seoul")).toInstant(),
                 ),
-            )
-            .sign(tokenAlgorithm)
+            ).sign(tokenAlgorithm)
 
         return DefaultOAuth2User(
             Collections.singleton(
@@ -106,18 +92,16 @@ class OAuth2CustomService(
     fun saveOrUpdate(
         email: String,
         name: String,
-        oauth2LoginType: String,
-    ) {
+        oauth2LoginType: LoginType,
+    ): User {
         val role = roleRepository.findByName(Role.ROLE_USER) ?: throw RuntimeException("ROLE_USER가 없습니다.")
-        val loginType =
-            loginTypeRepository.findByName(oauth2LoginType) ?: throw RuntimeException("EMAIL Login Type이  없습니다.")
 
-        User(
+        return User(
             email = email,
             password = "",
             name = name,
             role = role,
-            loginType = loginType,
+            loginType = oauth2LoginType,
         ).apply {
             userRepository.save(this)
         }

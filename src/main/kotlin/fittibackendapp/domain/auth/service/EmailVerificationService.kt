@@ -3,13 +3,11 @@ package fittibackendapp.domain.auth.service
 import fittibackendapp.configuration.EmailConfiguration
 import fittibackendapp.redis.service.RedisService
 import org.apache.commons.lang3.RandomStringUtils
-import org.reflections.Reflections.log
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.mail.SimpleMailMessage
 import org.springframework.mail.javamail.JavaMailSender
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import java.time.Duration
 
 @Service
 class EmailVerificationService(
@@ -27,14 +25,19 @@ class EmailVerificationService(
         var code = RandomStringUtils.randomNumeric(4)
         message.text = "$EMAIL_CONTENT\n인증번호: $code"
         message.subject = EMAIL_TITLE
-        redisService.deleteByKey(AUTH_CODE_PREFIX + email)
-        redisService.setValueWithExpire(AUTH_CODE_PREFIX + email, code, Duration.ofMillis(authCodeExpirationMills))
+        // try {
+        //     redisService.deleteByKey(AUTH_CODE_PREFIX + email)
+        //     redisService.setValueWithExpire(AUTH_CODE_PREFIX + email, code, Duration.ofMillis(authCodeExpirationMills))
+        // } catch (e: RuntimeException) {
+        //     throw RuntimeException("Failed to save auth code to redis")
+        // }
+
         try {
             emailSender.send(message)
         } catch (
             e: RuntimeException
         ) {
-            log.debug("Failed to send email to $email")
+            throw RuntimeException("Failed to send email verification message")
         }
     }
 

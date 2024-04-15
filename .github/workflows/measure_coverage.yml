@@ -1,0 +1,34 @@
+name: Measure coverage
+
+on:
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'corretto'
+          java-version: 17
+      - name: Set up Gradle
+        uses: gradle/gradle-build-action@v2
+      - name: Generate kover coverage report
+        run: ./gradlew koverXmlReport
+
+      - name: Add coverage report to PR
+        id: kover
+        uses: mi-kas/kover-report@v1
+        with:
+          path: |
+            ${{ github.workspace }}/build/reports/kover/report.xml
+          token: ${{ secrets.PAT_FITTI }}
+          title: Code Coverage
+          min-coverage-overall: 100
+          coverage-counter-type: LINE
+
+      - name: Make check fail when coverage conditions are not met
+        shell: bash
+        run: if [ ${{ steps.kover.outputs.coverage-overall }} \< 100 ]; then exit 1; fi
