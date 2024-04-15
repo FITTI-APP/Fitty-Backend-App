@@ -75,7 +75,7 @@ class AuthenticationService(
 
         return JWT.create()
             .withClaim("email", email)
-            .withClaim("password", user.password)
+            .withClaim("userId", user.id)
             .withClaim("role", user.role.id)
             .withExpiresAt(
                 Date.from(

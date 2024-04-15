@@ -15,7 +15,7 @@ class TokenAlgorithmConfiguration(
     fun tokenAlgorithm(): Algorithm {
         // val secret = secretsManagerService.getJwtSecretKey() todo
         val time = System.currentTimeMillis()
-        val secret = "fitti_secret_key_$profile" + "_$time"
+        val secret = "fitti_secret_key_$profile"
         return Algorithm.HMAC256(secret)
     }
 }
