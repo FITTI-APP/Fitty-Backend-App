@@ -145,6 +145,8 @@ dependencies {
     //	testRuntimeOnly("com.h2database", "h2")
     // testRuntimeOnly("org.jetbrains.kotlinx", "kotlinx-coroutines-core", "1.6.4")
     // testRuntimeOnly("org.jetbrains.kotlinx", "kotlinx-coroutines-test", "1.6.4")
+
+    implementation("com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.5")
 }
 
 tasks {
