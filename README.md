@@ -68,6 +68,8 @@ https://fitti.atlassian.net/wiki/spaces/NyangNyang/pages/7733318/DB
 - N + 1 방지
 - Fetch Join의 Over Fetching을 방지 가능.
 
+6. function의 argument가 2개 이상일시에는 named argument로 표시
+
 ----
 
 # CI/CD 구축
