@@ -1,0 +1,13 @@
+databaseChangeLog:
+  - changeSet:
+      id: add record_time column in user_detail table
+      author: dicohy27
+      changes:
+        - addColumn:
+            tableName: user_detail
+            columns:
+              - column:
+                  name: record_time
+                  type: timestamp
+                  constraints:
+                    nullable: false

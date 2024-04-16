@@ -35,6 +35,7 @@ class UserDetailService(
                     this.bodyFat = putUserDetailInput.bodyFat
                     this.targetWeight = putUserDetailInput.targetWeight
                     this.targetMuscleMass = putUserDetailInput.targetMuscleMass
+                    this.recordTime = putUserDetailInput.recordTime
                     userDetailRepository.save(this)
                 } ?: throw NotFoundUserDetailException()
         }
@@ -49,6 +50,7 @@ class UserDetailService(
                     bodyFat = putUserDetailInput.bodyFat,
                     targetWeight = putUserDetailInput.targetWeight,
                     targetMuscleMass = putUserDetailInput.targetMuscleMass,
+                    recordTime = putUserDetailInput.recordTime,
                 ),
             )
         }

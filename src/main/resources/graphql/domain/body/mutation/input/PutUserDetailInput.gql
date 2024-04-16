@@ -7,4 +7,5 @@ input PutUserDetailInput {
     bodyFat: Float
     targetWeight: Float
     targetMuscleMass: Float
+    recordTime: LocalDateTime!
 }

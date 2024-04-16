@@ -1,4 +1,4 @@
 type ExerciseSaveType {
     name: String!,
-    id: Long!
+    id: ID!
 }

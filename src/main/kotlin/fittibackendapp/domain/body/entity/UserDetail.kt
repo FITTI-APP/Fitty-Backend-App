@@ -14,6 +14,7 @@ import jakarta.persistence.Table
 import jakarta.validation.constraints.NotNull
 import org.hibernate.annotations.OnDelete
 import org.hibernate.annotations.OnDeleteAction
+import java.time.LocalDateTime
 
 @Entity
 @Table(name = "user_detail")
@@ -36,7 +37,9 @@ class UserDetail(
     @Column(name = "target_weight")
     var targetWeight: Double?,
     @Column(name = "target_muscle_mass")
-    var targetMuscleMass: Double?
+    var targetMuscleMass: Double?,
+    @Column(name = "record_time")
+    var recordTime: LocalDateTime,
 ): AuditLoggingBase() {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
