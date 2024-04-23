@@ -1,0 +1,21 @@
+extend type Mutation {
+    """
+    사용자 상세 정보를 추가 혹은 수정합니다.
+    나이, 키, 몸무게, 근육량, 체지방량, 목표 몸무게, 목표 근육량을 입력해야 합니다.
+    값을 입력하지 않으면 null로 입력됩니다.
+    추가할시에 ID는 null로 입력해야 합니다.
+    수정할시에 ID는 수정하고자 하는 사용자 상세 정보의 ID를 입력해야 합니다.
+
+    아래는 대표 예시입니다. ID가 없으므로 추가하는 예시입니다.
+    {
+    putUserDetailInput:{
+    age: 24
+    height: 178
+    weight: 71
+    muscleMass: 34
+    recordTime:"2024-04-16T00:00:00"
+    }
+    }
+    """
+    putUserDetail(putUserDetailInput: PutUserDetailInput!): UserDetail!
+}

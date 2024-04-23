@@ -1,6 +1,7 @@
-package fittibackendapp.domain.auth.entity
+package fittibackendapp.domain.body.entity
 
 import fittibackendapp.common.entitiybase.AuditLoggingBase
+import fittibackendapp.domain.auth.entity.User
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.FetchType
@@ -13,6 +14,7 @@ import jakarta.persistence.Table
 import jakarta.validation.constraints.NotNull
 import org.hibernate.annotations.OnDelete
 import org.hibernate.annotations.OnDeleteAction
+import java.time.LocalDateTime
 
 @Entity
 @Table(name = "user_detail")
@@ -22,27 +24,22 @@ class UserDetail(
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "user_id", nullable = false)
     var user: User,
-    @NotNull
-    @Column(name = "age", nullable = false)
-    var age: Int,
-    @NotNull
-    @Column(name = "height", nullable = false)
-    var height: Double,
-    @NotNull
-    @Column(name = "weight", nullable = false)
-    var weight: Double,
-    @NotNull
-    @Column(name = "muscle_mass", nullable = false)
-    var muscleMass: Double,
-    @NotNull
-    @Column(name = "body_fat", nullable = false)
-    var bodyFat: Double,
-    @NotNull
-    @Column(name = "target_weight", nullable = false)
-    var targetWeight: Double,
-    @NotNull
-    @Column(name = "target_muscle_mass", nullable = false)
-    var targetMuscleMass: Double
+    @Column(name = "age")
+    var age: Int?,
+    @Column(name = "height")
+    var height: Double?,
+    @Column(name = "weight")
+    var weight: Double?,
+    @Column(name = "muscle_mass")
+    var muscleMass: Double?,
+    @Column(name = "body_fat")
+    var bodyFat: Double?,
+    @Column(name = "target_weight")
+    var targetWeight: Double?,
+    @Column(name = "target_muscle_mass")
+    var targetMuscleMass: Double?,
+    @Column(name = "record_time")
+    var recordTime: LocalDateTime,
 ): AuditLoggingBase() {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

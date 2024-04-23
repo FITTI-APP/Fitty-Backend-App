@@ -1,0 +1,33 @@
+databaseChangeLog:
+  - changeSet:
+      id: drop not null contraint for user_detail table
+      author: admin
+      changes:
+        - dropNotNullConstraint:
+            tableName: user_detail
+            columnName: age
+            columnDataType: int
+        - dropNotNullConstraint:
+            tableName: user_detail
+            columnName: height
+            columnDataType: double
+        - dropNotNullConstraint:
+            tableName: user_detail
+            columnName: weight
+            columnDataType: double
+        - dropNotNullConstraint:
+            tableName: user_detail
+            columnName: muscle_mass
+            columnDataType: double
+        - dropNotNullConstraint:
+            tableName: user_detail
+            columnName: body_fat
+            columnDataType: double
+        - dropNotNullConstraint:
+            tableName: user_detail
+            columnName: target_weight
+            columnDataType: double
+        - dropNotNullConstraint:
+            tableName: user_detail
+            columnName: target_muscle_mass
+            columnDataType: double
