@@ -1,6 +1,6 @@
 package fittibackendapp.domain.fitti.entity
 
-import fittibackendapp.common.entitiybase.AuditLoggingBase
+import fittibackendapp.common.entitiybase.AuditLoggingEnumBase
 import fittibackendapp.domain.auth.entity.User
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
@@ -28,7 +28,7 @@ class Follow(
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "following_id", nullable = false)
     var following: User,
-): AuditLoggingBase() {
+): AuditLoggingEnumBase() {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)

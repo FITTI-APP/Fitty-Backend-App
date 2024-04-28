@@ -33,3 +33,19 @@ databaseChangeLog:
                   type: timestamp
                   constraints:
                     nullable: false
+        - addForeignKeyConstraint:
+            baseTableName: follow
+            baseColumnNames: follower_id
+            referencedTableName: user
+            referencedColumnNames: id
+            constraintName: fk_follow_follower_id
+            onDelete: CASCADE
+            onUpdate: CASCADE
+        - addForeignKeyConstraint:
+            baseTableName: follow
+            baseColumnNames: following_id
+            referencedTableName: user
+            referencedColumnNames: id
+            constraintName: fk_follow_following_id
+            onDelete: CASCADE
+            onUpdate: CASCADE
