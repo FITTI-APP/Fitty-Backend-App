@@ -20,20 +20,20 @@ class FollowService(
     @Transactional
     fun putFollow(
         followerId: Long,
-        followingId: Long,
+        followeeId: Long,
     ): FollowDto {
-        val existingFollow = followRepository.findByFollowerIdAndFollowingId(followerId, followingId)
+        val existingFollow = followRepository.findByFollowerIdAndFolloweeId(followerId, followeeId)
         if (existingFollow != null) {
             throw AlreadyExistingFollowException()
         }
 
         val follower = userRepository.findByIdOrNull(followerId) ?: throw NotFoundUserException()
-        val following = userRepository.findByIdOrNull(followingId) ?: throw NotFoundUserException()
+        val followee = userRepository.findByIdOrNull(followeeId) ?: throw NotFoundUserException()
 
         val follow = followRepository.save(
             Follow(
                 follower = follower,
-                following = following,
+                followee = followee,
             ),
         )
 

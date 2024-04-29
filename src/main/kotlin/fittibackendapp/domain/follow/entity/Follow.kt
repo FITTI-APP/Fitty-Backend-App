@@ -26,8 +26,8 @@ class Follow(
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "following_id", nullable = false)
-    var following: User,
+    @JoinColumn(name = "followee_id", nullable = false)
+    var followee: User,
 ): AuditLoggingEnumBase() {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

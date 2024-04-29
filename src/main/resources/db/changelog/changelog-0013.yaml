@@ -19,7 +19,7 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
-                  name: following_id
+                  name: followee_id
                   type: bigint
                   constraints:
                     nullable: false
@@ -43,9 +43,9 @@ databaseChangeLog:
             onUpdate: CASCADE
         - addForeignKeyConstraint:
             baseTableName: follow
-            baseColumnNames: following_id
+            baseColumnNames: followee_id
             referencedTableName: user
             referencedColumnNames: id
-            constraintName: fk_follow_following_id
+            constraintName: fk_follow_followee_id
             onDelete: CASCADE
             onUpdate: CASCADE
