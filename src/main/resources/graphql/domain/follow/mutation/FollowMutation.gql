@@ -1,0 +1,3 @@
+extend type Mutation{
+    followUser(followeeId: Long!): Follow!
+}

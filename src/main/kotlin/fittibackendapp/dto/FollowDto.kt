@@ -4,6 +4,6 @@ import java.io.Serializable
 
 data class FollowDto(
     val followerId: Long,
-    val followingId: Long,
+    val followeeId: Long,
     val id: Long
 ): Serializable
