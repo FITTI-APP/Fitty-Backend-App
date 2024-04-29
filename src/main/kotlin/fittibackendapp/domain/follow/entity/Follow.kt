@@ -1,4 +1,4 @@
-package fittibackendapp.domain.fitti.entity
+package fittibackendapp.domain.follow.entity
 
 import fittibackendapp.common.entitiybase.AuditLoggingEnumBase
 import fittibackendapp.domain.auth.entity.User
