@@ -3,7 +3,7 @@ package fittibackendapp.dto
 import java.io.Serializable
 
 data class FollowDto(
-    val followerId: Long,
-    val followeeId: Long,
+    val follower: UserDto,
+    val followee: UserDto,
     val id: Long
 ): Serializable

@@ -1,0 +1,3 @@
+extend type Query{
+    followersByUserId(userId: Long!): [Follow!]!
+}

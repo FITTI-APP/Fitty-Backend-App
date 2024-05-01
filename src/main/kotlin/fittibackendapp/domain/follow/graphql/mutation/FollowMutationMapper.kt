@@ -18,9 +18,22 @@ class FollowMutationMapper(
         followeeId: Long
     ): FollowDto {
         val userId = argumentResolver.getUserId()
-        return followService.putFollow(
+        return followService.createFollow(
             followerId = userId,
             followeeId = followeeId,
         )
+    }
+
+    @MutationMapping
+    fun unfollowUser(
+        @Argument
+        followeeId: Long
+    ): Boolean {
+        val userId = argumentResolver.getUserId()
+        followService.deleteFollow(
+            followerId = userId,
+            followeeId = followeeId,
+        )
+        return true
     }
 }

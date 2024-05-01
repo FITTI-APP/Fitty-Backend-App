@@ -6,6 +6,7 @@ import fittibackendapp.domain.follow.repository.FollowRepository
 import fittibackendapp.dto.FollowDto
 import fittibackendapp.dto.mapstruct.FollowMapStruct
 import fittibackendapp.exception.AlreadyExistingFollowException
+import fittibackendapp.exception.NotFoundFollowException
 import fittibackendapp.exception.NotFoundUserException
 import jakarta.transaction.Transactional
 import org.springframework.data.repository.findByIdOrNull
@@ -18,7 +19,7 @@ class FollowService(
     private val userRepository: UserRepository,
 ) {
     @Transactional
-    fun putFollow(
+    fun createFollow(
         followerId: Long,
         followeeId: Long,
     ): FollowDto {
@@ -36,7 +37,17 @@ class FollowService(
                 followee = followee,
             ),
         )
-
         return followMapStruct.toDto(follow)
+    }
+
+    @Transactional
+    fun deleteFollow(
+        followerId: Long,
+        followeeId: Long,
+    ) {
+        val follow = followRepository.findByFollowerIdAndFolloweeId(followerId, followeeId)
+            ?: throw NotFoundFollowException()
+
+        followRepository.delete(follow)
     }
 }
