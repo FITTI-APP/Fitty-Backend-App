@@ -4,7 +4,9 @@ import fittibackendapp.domain.auth.repository.UserRepository
 import fittibackendapp.domain.follow.entity.Follow
 import fittibackendapp.domain.follow.repository.FollowRepository
 import fittibackendapp.dto.FollowDto
+import fittibackendapp.dto.UserDto
 import fittibackendapp.dto.mapstruct.FollowMapStruct
+import fittibackendapp.dto.mapstruct.UserMapStruct
 import fittibackendapp.exception.AlreadyExistingFollowException
 import fittibackendapp.exception.NotFoundFollowException
 import fittibackendapp.exception.NotFoundUserException
@@ -17,6 +19,7 @@ class FollowService(
     private val followRepository: FollowRepository,
     private val followMapStruct: FollowMapStruct,
     private val userRepository: UserRepository,
+    private val userMapStruct: UserMapStruct,
 ) {
     @Transactional
     fun createFollow(
@@ -49,5 +52,21 @@ class FollowService(
             ?: throw NotFoundFollowException()
 
         followRepository.delete(follow)
+    }
+
+    @Transactional
+    fun findFollowersByUserId(
+        userId: Long,
+    ): List<UserDto> {
+        val followers = followRepository.findAllByFolloweeId(userId).map { it.follower }
+        return userMapStruct.toDtos(followers)
+    }
+
+    @Transactional
+    fun findFolloweesByUserId(
+        userId: Long,
+    ): List<UserDto> {
+        val followees = followRepository.findAllByFollowerId(userId).map { it.followee }
+        return userMapStruct.toDtos(followees)
     }
 }

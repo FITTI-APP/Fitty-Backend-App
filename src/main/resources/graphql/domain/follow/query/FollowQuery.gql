@@ -1,3 +1,10 @@
 extend type Query{
-    followersByUserId(userId: Long!): [Follow!]!
+    """
+    user를 팔로우한 사용자들을 반환합니다.
+    """
+    followersByUserId(userId: Long!): [User!]!
+    """
+    user가 팔로우한 사용자들을 반환합니다.
+    """
+    followeesByUserId(userId: Long!): [User!]!
 }

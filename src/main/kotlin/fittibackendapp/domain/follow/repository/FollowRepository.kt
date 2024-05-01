@@ -7,4 +7,6 @@ import org.springframework.stereotype.Repository
 @Repository
 interface FollowRepository: JpaRepository<Follow, Long> {
     fun findByFollowerIdAndFolloweeId(followerId: Long, followeeId: Long): Follow?
+    fun findAllByFolloweeId(followeeId: Long): List<Follow>
+    fun findAllByFollowerId(followerId: Long): List<Follow>
 }
