@@ -27,9 +27,7 @@ class FollowService(
         followeeId: Long,
     ): FollowDto {
         val existingFollow = followRepository.findByFollowerIdAndFolloweeId(followerId, followeeId)
-        if (existingFollow != null) {
-            throw AlreadyExistingFollowException()
-        }
+            ?: throw AlreadyExistingFollowException()
 
         val follower = userRepository.findByIdOrNull(followerId) ?: throw NotFoundUserException()
         val followee = userRepository.findByIdOrNull(followeeId) ?: throw NotFoundUserException()
@@ -54,7 +52,6 @@ class FollowService(
         followRepository.delete(follow)
     }
 
-    @Transactional
     fun findFollowersByUserId(
         userId: Long,
     ): List<UserDto> {
@@ -62,7 +59,7 @@ class FollowService(
         return userMapStruct.toDtos(followers)
     }
 
-    @Transactional
+    // todo: n+1 problem
     fun findFolloweesByUserId(
         userId: Long,
     ): List<UserDto> {
