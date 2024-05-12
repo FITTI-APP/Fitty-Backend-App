@@ -1,0 +1,5 @@
+type Follow{
+    follower: User!,
+    followee: User!,
+    id: ID!
+}
